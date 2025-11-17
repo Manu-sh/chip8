@@ -50,8 +50,8 @@ typedef struct {
     uint16_t PC : 12; // program counter
     uint16_t    : 4;
 
-    volatile uint8_t delay_timer;
-    volatile uint8_t sound_timer;
+    uint8_t delay_timer;
+    uint8_t sound_timer;
 
     keystate_t keypad[HKEY_LEN];
     struct {
