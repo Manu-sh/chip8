@@ -44,26 +44,23 @@ void sdl_buzzer_beep(sdl_buzzer_t *self) {
        We're being lazy here, but if there's less than half a second queued, generate more.
        A sine wave is unchanging audio--easy to stream--but for video games, you'll want
        to generate significantly _less_ audio ahead of time! */
-    if (SDL_GetAudioStreamQueued(self->stream) < self->minimum_audio) {
+    if (SDL_GetAudioStreamQueued(self->stream) >= self->minimum_audio)
+        return;
 
-        /* this will feed 512 / 4 samples each frame until we get to our maximum. */
-
-        /* generate a 220Hz pure tone */
-        for (unsigned i = 0; i < SDL_arraysize(self->samples); i++) {
-            static const int freq = 220;
-            const float phase = self->current_sine_sample * freq / (float)self->spec.freq;
-            self->samples[i] = SDL_sinf(phase * 2 * SDL_PI_F);
-            self->current_sine_sample++;
-        }
-
-        /* wrapping around to avoid floating-point errors */
-        self->current_sine_sample %= self->spec.freq;
-
-        /* feed the new data to the stream. It will queue at the end, and trickle out as the hardware needs more data. */
-        SDL_PutAudioStreamData(self->stream, self->samples, sizeof(self->samples));
+    /* this will feed 512 / 4 samples each frame until we get to our maximum. */
+    /* generate a 220Hz pure tone */
+    for (unsigned i = 0; i < SDL_arraysize(self->samples); i++) {
+        static const int freq = 220;
+        const float phase = self->current_sine_sample * freq / (float)self->spec.freq;
+        self->samples[i] = SDL_sinf(phase * 2 * SDL_PI_F);
+        self->current_sine_sample++;
     }
 
+    /* wrapping around to avoid floating-point errors */
+    self->current_sine_sample %= self->spec.freq;
 
+    /* feed the new data to the stream. It will queue at the end, and trickle out as the hardware needs more data. */
+    SDL_PutAudioStreamData(self->stream, self->samples, sizeof(self->samples));
 }
 
 void sdl_buzzer_free(sdl_buzzer_t *self) {
