@@ -19,7 +19,7 @@ typedef union __attribute__((__packed__)) {
     uint16_t data;
     uint8_t byte[sizeof(uint16_t)];
 
-	struct __attribute__((__packed__)) {
+	struct __attribute__((packed)) {
         #ifdef __LITTLE_ENDIAN_BITFIELD
             uint16_t N    : 4;
             uint16_t Y    : 4;
@@ -35,7 +35,7 @@ typedef union __attribute__((__packed__)) {
         #endif
 	};
 
-    struct __attribute__((__packed__)) {
+    struct __attribute__((packed)) {
         #ifdef __LITTLE_ENDIAN_BITFIELD
             uint16_t NNN : 12;
             uint16_t     : 4;
@@ -45,7 +45,7 @@ typedef union __attribute__((__packed__)) {
         #endif
     };
 
-    struct __attribute__((__packed__)) {
+    struct __attribute__((packed)) {
         #ifdef __LITTLE_ENDIAN_BITFIELD
             uint16_t NN : 8;
             uint16_t    : 4;
