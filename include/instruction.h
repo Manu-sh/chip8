@@ -14,7 +14,7 @@
 #define NNN(_INSTR_) (nibble_slice16(_INSTR_, 1, 4))
 #define N(_INSTR_)   (nibble_slice16(_INSTR_, 3, 4))
 
-typedef union __attribute__((__packed__)) {
+typedef union __attribute__((packed)) {
 
     uint16_t data;
     uint8_t byte[sizeof(uint16_t)];
