@@ -37,7 +37,7 @@ typedef struct {
     union {
         uint8_t V[REG_LEN]; // 16 data registers
 
-        struct {
+        struct __attribute__((__packed__)) {
             uint8_t V0, V1, V2, V3, V4, V5, V6, V7, V8, V9, VA, VB, VC, VD, VE, VF;
         };
     };
