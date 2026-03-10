@@ -2,7 +2,6 @@
 
 #include <endian.h>
 #include <stdint.h>
-#include <string.h>
 
 #include <asm/byteorder.h>
 #include <bit_utility.h>

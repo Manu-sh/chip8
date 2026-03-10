@@ -1,4 +1,7 @@
 .idea/
+.zed/
+.cache/
+.vscode/
 build/
 main
 CMakeCache.txt
